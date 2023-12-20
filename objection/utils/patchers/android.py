@@ -308,15 +308,14 @@ class AndroidPatcher(BasePlatformPatcher):
                 'dump',
                 'badging',
                 self.apk_source
-            ]), timeout=self.command_run_timeout)
+            ]), timeout=self.command_run_timeout, binary=True)
 
             if len(o.err) > 0:
                 click.secho('An error may have occurred while running aapt.', fg='red')
                 click.secho(o.err, fg='red')
 
             self.aapt = o.out
-
-        return self.aapt
+        return self.aapt.decode()
 
     def _get_launchable_activity(self) -> str:
         """
